@@ -16,15 +16,29 @@ function verificarUsuarioPin(pin){
     }
 }
 
-const depopsitarDinero = (montoIngreso = 0) => {
+function verMontoAcutal(){
+    alert(`Su monto es de: ${miMonto}`)
+}
+
+const depopsitarDinero = (montoIngreso) => {
+    if(montoIngreso < 0){
+        alert("No puede ingresar valores negativos")
+        return
+    }
+
     if(montoIngreso > 40000){
         alert("Su deposito supera el limite.")
         return 0
     }
-    return montoIngreso
+    miMonto = miMonto + montoIngreso
 }   
 
-const retirarDinero = (montoRetiro = 0) => {
+const retirarDinero = (montoRetiro) => {
+    if(montoRetiro < 0){
+        alert("No puede ingresar valores negativos")
+        return
+    }
+
     if(montoRetiro > 80000){
         alert("Su retiro supera el limite.")
         return 0
@@ -33,9 +47,9 @@ const retirarDinero = (montoRetiro = 0) => {
     if(miMonto - montoRetiro < 0){
         alert("No diene el dinero suficiente para hacer esa extraccion.")
         return 0
-    }else{
-        return montoRetiro
     }
+    alert("su retiro de dinero fue de " + montoRetiro)
+    miMonto = miMonto - montoRetiro
 }
 
 // ----- Creando Pines -----
@@ -44,8 +58,6 @@ crearPin("7894")
 crearPin("6231")
 crearPin("9999")
 crearPin("5544")
-console.log(contrasenias)
-console.log(contrasenias.length)
 
 //Todo lo que viene siendo el menu para la utilizacion de las funciones
 let continuar= true
@@ -57,15 +69,15 @@ while(continuar){
     let opcion = parseInt(prompt("1.Ver monto actual\n2.Depositar dinero\n3.Retirar dinero\n4.Salir"))
     switch(opcion){
         case 1: 
-            alert(`Su monto es de: ${miMonto}`)
+            verMontoAcutal()
             break
             case 2: 
             let deposito = parseInt(prompt(`¿Cuanto dinero desea depositar a su cuenta?\nSu saldo actual es: ${miMonto} \nLimite de deposito: 40000`))
-            miMonto = miMonto + depopsitarDinero(deposito)
+            depopsitarDinero(deposito)
             break
             case 3: 
             let retiro = parseInt(prompt(`¿Cuanto dinero desea retirar de su cuenta?\nSu dinero actual es: ${miMonto}\nLimite de retiro: 80000`))
-            miMonto = miMonto - retirarDinero(retiro)
+            retirarDinero(retiro)
             break
             case 4:
                 alert("Gracias!")
